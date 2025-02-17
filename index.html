@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObservableHQ & Flourish Chart Loader</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            font-size: 32px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 120px;
+            margin-top: 30px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button.active {
+            background-color: rgb(42, 251, 42);
+        }
+        .visual-container {
+            width: 100%;
+            height: 600px;
+            display: block;
+            margin-top: 100px;
+            text-align: left;
+        }
+        .visual-heading {
+            font-family: Avenir Next LT Pro;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>SDV LATEST TRENDS</h1>
+    
+    <div class="button-container">
+        <button id="roleTrendsBtn" onclick="loadChart('roleTrends', this)">Role Trends</button>
+        <button id="productsBtn" onclick="loadChart('products', this)">Products</button>
+        <button id="technologiesBtn" onclick="loadChart('technologies', this)">Technologies</button>
+    </div>
+    
+    <div id="visual-container" class="visual-container"></div>
+
+    <script>
+        function loadChart(chartId, button) {
+            var container = document.getElementById('visual-container');
+            var iframe;
+            
+            container.innerHTML = '';
+            document.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            var heading = document.createElement('div');
+            heading.className = 'visual-heading';
+            if (chartId === 'products') {
+                heading.innerText = 'TRENDING PRODUCTS';
+            } else if (chartId === 'roleTrends') {
+                heading.innerText = 'TRENDING ROLES FROM NOV 2024 - JAN 2025';
+            } else if (chartId === 'technologies') {
+                heading.innerText = 'TRENDING TECHNOLOGIES';
+            }
+            container.appendChild(heading);
+            
+            iframe = document.createElement('iframe');
+            if (chartId === 'products') {
+                iframe.src = "https://observablehq.com/embed/@cream-collar/products_sunburst?cell=chart";
+            } else if (chartId === 'roleTrends') {
+                iframe.src = "https://observablehq.com/embed/@cream-collar/roles-final?cell=chart";
+            } else if (chartId === 'technologies') {
+                iframe.src = "https://public.flourish.studio/visualisation/21548516/embed";
+            }
+            
+            iframe.width = "100%";
+            iframe.height = "800px";
+            iframe.frameBorder = "0";
+            iframe.allowFullscreen = true;
+            
+            container.appendChild(iframe);
+        }
+    </script>
+</body>
+</html
